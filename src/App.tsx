@@ -1,6 +1,7 @@
 import React from "react";
 
 import "./App.css";
+import { AddTodo } from "./components/AddTodo"
 import { TodoItem } from "./types";
 
 type Props = {
@@ -20,23 +21,14 @@ class App extends React.Component<Props> {
   render() {
     return (
       <div>
-        <input
-          ref={node => {
-            this.input = node;
-          }}
-        />
-        <button
-          onClick={() => {
+        <AddTodo addOnClick={ (value: string) => {
             this.props.store.dispatch({
               type: "ADD_TODO",
-              text: this.input!.value,
+              text: value,
               id: this.nextTodoId++
             });
-            this.input!.value = "";
-          }}
-        >
-          Add Todo
-        </button>
+          }
+        }/>
         <ul>
           {this.props.todos.map((todo: TodoItem) => (
             <li
