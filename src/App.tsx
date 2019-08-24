@@ -1,5 +1,4 @@
 import React from "react";
-import Redux from "redux";
 
 import "./App.css";
 import { TodoItem } from "./types";
