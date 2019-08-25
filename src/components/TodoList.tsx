@@ -3,7 +3,7 @@ import {TodoItem} from "../types";
 import {TodoListItem} from "./TodoListItem";
 
 type Props = {
-    todos: TodoItem[]
+    todos: TodoItem[],
     onItemClick: (id: string) => (event: SyntheticEvent) =>  void
 };
 
