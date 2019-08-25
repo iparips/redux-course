@@ -2,6 +2,7 @@ import React from "react";
 
 import "./App.css";
 import { AddTodo } from "./components/AddTodo"
+import { TodoList } from "./components/TodoList"
 import { TodoItem } from "./types";
 
 type Props = {
@@ -29,24 +30,15 @@ class App extends React.Component<Props> {
             });
           }
         }/>
-        <ul>
-          {this.props.todos.map((todo: TodoItem) => (
-            <li
-              key={todo.id}
-              onClick={() => {
-                this.props.store.dispatch({
-                  type: "TOGGLE_TODO",
-                  id: todo.id
-                });
-              }}
-              style={{
-                textDecoration: todo.completed ? "line-through" : "none"
-              }}
-            >
-              {todo.text}
-            </li>
-          ))}
-        </ul>
+        <TodoList 
+          todos={this.props.todos} 
+          onItemClick={(id) => (event) => {
+            this.props.store.dispatch({
+              type: "TOGGLE_TODO",
+              id
+            });
+          }}
+        />
       </div>
     );
   }
