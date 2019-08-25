@@ -15,8 +15,3 @@ export enum VisibilityFilter {
     COMPLETED = "COMPLETED",
     ACTIVE = "ACTIVE"
 }
-
-export type AppState = {
-    todos: TodoItem[],
-    visibilityFilter: VisibilityFilter
-}

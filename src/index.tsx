@@ -7,8 +7,7 @@ import App from "./App";
 import { 
   TodoItem, 
   AddOrToggleTodoAction, 
-  VisibilityFilter,
-  AppState
+  VisibilityFilter
  } from "./types";
 
 const defaultAction: TodoItem = {
