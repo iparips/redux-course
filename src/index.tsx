@@ -4,7 +4,12 @@ import {combineReducers, createStore} from "redux";
 
 import "./index.css";
 import App from "./App";
-import { TodoItem, Action } from "./types";
+import { 
+  TodoItem, 
+  AddOrToggleTodoAction, 
+  VisibilityFilter,
+  AppState
+ } from "./types";
 
 const defaultAction: TodoItem = {
   id: "",
@@ -12,7 +17,7 @@ const defaultAction: TodoItem = {
   completed: false
 };
 
-const todo = (state: TodoItem = defaultAction, action: Action): TodoItem => {
+const todo = (state: TodoItem = defaultAction, action: AddOrToggleTodoAction): TodoItem => {
   switch (action.type) {
     case "ADD_TODO":
       return {
@@ -24,7 +29,6 @@ const todo = (state: TodoItem = defaultAction, action: Action): TodoItem => {
       if (state.id !== action.id) {
         return state;
       }
-
       return {
         ...state,
         completed: !state.completed
@@ -34,7 +38,7 @@ const todo = (state: TodoItem = defaultAction, action: Action): TodoItem => {
   }
 };
 
-const todos = (state: TodoItem[] = [], action: Action) => {
+const todos = (state: TodoItem[] = [], action: AddOrToggleTodoAction) => {
   switch (action.type) {
     case "ADD_TODO":
       return [...state, todo(undefined, action)];
@@ -46,9 +50,9 @@ const todos = (state: TodoItem[] = [], action: Action) => {
 };
 
 const visibilityFilter = (
-  state = "SHOW_ALL",
-  action: { type: any; filter: any }
-) => {
+  state = VisibilityFilter.ALL,
+  action: { type: string; filter: VisibilityFilter }
+): VisibilityFilter => {
   switch (action.type) {
     case "SET_VISIBILITY_FILTER":
       return action.filter;
@@ -66,10 +70,10 @@ const store = createStore(todoApp);
 
 const render = () => {
   ReactDOM.render(
-    <App 
+    <App
       todos={store.getState().todos} 
-      store={store} 
       visibilityFilter={store.getState().visibilityFilter}
+      store={store} 
     />,
     document.getElementById("root")
   );

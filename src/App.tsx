@@ -4,11 +4,11 @@ import "./App.css";
 import { AddTodo } from "./components/AddTodo"
 import { TodoList } from "./components/TodoList"
 import { Footer } from "./components/Footer"
-import { TodoItem } from "./types";
+import { TodoItem, VisibilityFilter } from "./types";
 
 type Props = {
   todos: TodoItem[],
-  visibilityFilter: string,
+  visibilityFilter: VisibilityFilter,
   store: any
 };
 
@@ -21,11 +21,11 @@ class App extends React.Component<Props> {
     this.input = null;
   }
 
-  private filterTodos(todos: TodoItem[], visibilityFilter: string): TodoItem[] {
+  private filterTodos(todos: TodoItem[], visibilityFilter: VisibilityFilter): TodoItem[] {
     switch (visibilityFilter) {
-      case "COMPLETED":
+      case VisibilityFilter.COMPLETED:
         return todos.filter(todo => todo.completed === true);
-      case "ACTIVE":
+      case VisibilityFilter.ACTIVE:
           return todos.filter(todo => todo.completed === false);
       default:
         return todos;
@@ -58,19 +58,19 @@ class App extends React.Component<Props> {
           onCompletedClick={() => {
             this.props.store.dispatch({
               type: "SET_VISIBILITY_FILTER",
-              filter: "COMPLETED"
+              filter: VisibilityFilter.COMPLETED
             });
           }}
           onActiveClick={() => {
             this.props.store.dispatch({
               type: "SET_VISIBILITY_FILTER",
-              filter: "ACTIVE"
+              filter: VisibilityFilter.ACTIVE
             });
           }}
           onAllClick={() => {
             this.props.store.dispatch({
               type: "SET_VISIBILITY_FILTER",
-              filter: "ALL"
+              filter: VisibilityFilter.ALL
             });
           }}
         />
